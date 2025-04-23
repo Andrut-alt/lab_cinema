@@ -1,28 +1,16 @@
 import React, { useState } from "react";
-import { movies as moviesData } from "./data/movies";
-import MovieList from "./components/MovieList";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Booking from "./pages/Booking";
 
 function App() {
-  const [search, setSearch] = useState("");
-
-  // Пошук за назвою (нечутливий до регістру)
-  const filteredMovies = moviesData.filter((movie) =>
-    movie.title.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
-    <div>
-      <h1>Кінотеатр</h1>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Пошук фільму..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
-      <MovieList movies={filteredMovies} />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/booking/:id" element={<Booking />} />
+      </Routes>
+    </Router>
   );
 }
 
