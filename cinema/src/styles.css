@@ -123,4 +123,34 @@ body {
     background-color: #333;
     transform: scale(1.05);
   }
+
+  .booking-form {
+    max-width: 400px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .booking-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: "Courier New", monospace;
+  }
+  
+  .booking-form button {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+  }
+  
+  .booking-form button:hover {
+    background-color: #333;
+  }
   
