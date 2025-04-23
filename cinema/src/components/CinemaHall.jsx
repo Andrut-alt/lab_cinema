@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const CinemaHall = ({ movieId }) => {
+const CinemaHall = ({ movieId, onSaveSeats }) => {
   const rows = 5;
   const seatsPerRow = 8;
 
@@ -15,14 +15,10 @@ const CinemaHall = ({ movieId }) => {
     }
   };
 
-  const handleBooking = () => {
-    // Тимчасове збереження у localStorage (ЛР10 — буде через BookingService)
-    localStorage.setItem(
-      `booking-${movieId}`,
-      JSON.stringify(selectedSeats)
-    );
-    alert("Місця заброньовано: " + selectedSeats.join(", "));
-  };
+  useEffect(() => {
+    onSaveSeats && onSaveSeats(selectedSeats);
+    localStorage.setItem(`booking-seats-${movieId}`, JSON.stringify(selectedSeats));
+  }, [selectedSeats]);
 
   return (
     <div className="cinema-hall">
@@ -48,10 +44,6 @@ const CinemaHall = ({ movieId }) => {
       </div>
 
       <p>Вибрані місця: {selectedSeats.join(", ") || "немає"}</p>
-
-      <button onClick={handleBooking} disabled={selectedSeats.length === 0}>
-        Забронювати
-      </button>
     </div>
   );
 };
