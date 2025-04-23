@@ -153,4 +153,25 @@ body {
   .booking-form button:hover {
     background-color: #333;
   }
+  .seat.booked {
+    background-color: #999;
+    color: white;
+    cursor: not-allowed;
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  .back-button {
+    background-color: transparent;
+    color: #1a1a1a;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-bottom: 10px;
+    display: inline-block;
+    font-family: "Courier New", monospace;
+  }
   
+  .back-button:hover {
+    color: #333;
+  }
