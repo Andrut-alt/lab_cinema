@@ -22,12 +22,18 @@ body {
   }
   
   .movie-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
+    font-family: "Courier New", monospace;
+    padding-bottom: 10px;
+    height: 100%;
   }
   
   .movie-card:hover {
@@ -58,5 +64,63 @@ body {
     display: block;
     border: 1px solid #ccc;
     border-radius: 6px;
+  }
+
+  .cinema-hall {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+  }
+  
+  .hall-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .hall-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .seat {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    background-color: #eee;
+    transition: 0.2s;
+  }
+  
+  .seat.selected {
+    background-color: #3399ff;
+    color: white;
+  }
+  .movie-card button {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-family: "Courier New", monospace;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    margin: 16px auto 10px;
+    display: block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .movie-card button:hover {
+    background-color: #333;
+    transform: scale(1.05);
   }
   

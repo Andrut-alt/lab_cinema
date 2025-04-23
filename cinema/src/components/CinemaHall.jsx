@@ -1,49 +1,57 @@
 import React, { useState } from "react";
-import "./CinemaHall.css"; // окремо стилі, додамо далі
 
-const ROWS = 5;
-const SEATS_PER_ROW = 8;
+const CinemaHall = ({ movieId }) => {
+  const rows = 5;
+  const seatsPerRow = 8;
 
-// Імітація зайнятих місць
-const reservedSeats = [3, 4, 11, 17];
-
-const CinemaHall = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
 
-  const toggleSeat = (index) => {
-    if (reservedSeats.includes(index)) return;
-
-    setSelectedSeats((prev) =>
-      prev.includes(index)
-        ? prev.filter((seat) => seat !== index)
-        : [...prev, index]
-    );
+  const toggleSeat = (row, seat) => {
+    const seatId = `${row}-${seat}`;
+    if (selectedSeats.includes(seatId)) {
+      setSelectedSeats(selectedSeats.filter(s => s !== seatId));
+    } else {
+      setSelectedSeats([...selectedSeats, seatId]);
+    }
   };
 
-  const totalSeats = ROWS * SEATS_PER_ROW;
-  const seats = Array.from({ length: totalSeats });
+  const handleBooking = () => {
+    // Тимчасове збереження у localStorage (ЛР10 — буде через BookingService)
+    localStorage.setItem(
+      `booking-${movieId}`,
+      JSON.stringify(selectedSeats)
+    );
+    alert("Місця заброньовано: " + selectedSeats.join(", "));
+  };
 
   return (
     <div className="cinema-hall">
-      <h2>Оберіть місця</h2>
-      <div className="seats">
-        {seats.map((_, index) => {
-          const isSelected = selectedSeats.includes(index);
-          const isReserved = reservedSeats.includes(index);
-          return (
-            <div
-              key={index}
-              className={`seat ${isSelected ? "selected" : ""} ${isReserved ? "reserved" : ""}`}
-              onClick={() => toggleSeat(index)}
-            >
-              {index + 1}
-            </div>
-          );
-        })}
+      <h3>Оберіть місця:</h3>
+      <div className="hall-grid">
+        {[...Array(rows)].map((_, row) => (
+          <div key={row} className="hall-row">
+            {[...Array(seatsPerRow)].map((_, seat) => {
+              const seatId = `${row}-${seat}`;
+              const isSelected = selectedSeats.includes(seatId);
+              return (
+                <div
+                  key={seatId}
+                  className={`seat ${isSelected ? "selected" : ""}`}
+                  onClick={() => toggleSeat(row, seat)}
+                >
+                  {seat + 1}
+                </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
-      <div className="selected-info">
-        Обрані місця: {selectedSeats.map(i => i + 1).join(", ") || "немає"}
-      </div>
+
+      <p>Вибрані місця: {selectedSeats.join(", ") || "немає"}</p>
+
+      <button onClick={handleBooking} disabled={selectedSeats.length === 0}>
+        Забронювати
+      </button>
     </div>
   );
 };
